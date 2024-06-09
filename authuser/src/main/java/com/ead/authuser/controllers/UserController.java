@@ -13,7 +13,7 @@ import java.util.UUID;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
-@RequestMapping(name = "/ueser")
+@RequestMapping(value = "/users")
 public class UserController {
 
     @Autowired
@@ -24,7 +24,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(userService.findAll());
     }
 
-    @GetMapping(name = "/{userId}")
+    @GetMapping(value = "/{userId}")
     public ResponseEntity<Object> getOneUser(@PathVariable(value = "userId") UUID userId){
         Optional<UserModel> userModelOptional = userService.findById(userId);
         if (userModelOptional.isEmpty())
@@ -32,7 +32,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(userModelOptional.get());
     }
 
-    @DeleteMapping(name = "/{userId}")
+    @DeleteMapping(value = "/{userId}")
     public ResponseEntity<Object> deleteUser(@PathVariable(value = "userId") UUID userId) {
         Optional<UserModel> userModelOptional = userService.findById(userId);
         if (userModelOptional.isEmpty())
