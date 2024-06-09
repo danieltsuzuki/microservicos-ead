@@ -4,10 +4,10 @@ import com.ead.authuser.dtos.UserDto;
 import com.ead.authuser.models.UserModel;
 import com.ead.authuser.services.UserService;
 import com.fasterxml.jackson.annotation.JsonView;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -49,6 +49,7 @@ public class UserController {
     @PutMapping(value = "/{userId}")
     public ResponseEntity<Object> updateUser(@PathVariable(value = "userId") UUID userId,
                                              @JsonView(UserDto.UserView.UserPut.class)
+                                             @Validated(UserDto.UserView.UserPut.class)
                                              @RequestBody UserDto userDto) {
         Optional<UserModel> userModelOptional = userService.findById(userId);
         if (userModelOptional.isEmpty())
@@ -65,6 +66,7 @@ public class UserController {
     @PutMapping(value = "/{userId}/password")
     public ResponseEntity<Object> updatePassword(@PathVariable(value = "userId") UUID userId,
                                                  @JsonView(UserDto.UserView.PasswordPut.class)
+                                                 @Validated(UserDto.UserView.PasswordPut.class)
                                                  @RequestBody UserDto userDto) {
         Optional<UserModel> userModelOptional = userService.findById(userId);
         if (userModelOptional.isEmpty())
@@ -81,6 +83,7 @@ public class UserController {
     @PutMapping(value = "/{userId}/image")
     public ResponseEntity<Object> updateImage(@PathVariable(value = "userId") UUID userId,
                                               @JsonView(UserDto.UserView.ImagePut.class)
+                                              @Validated(UserDto.UserView.ImagePut.class)
                                               @RequestBody UserDto userDto) {
         Optional<UserModel> userModelOptional = userService.findById(userId);
         if (userModelOptional.isEmpty())
