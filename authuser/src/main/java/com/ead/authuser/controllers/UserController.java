@@ -55,7 +55,7 @@ public class UserController {
     public ResponseEntity<Object> getOneUser(@PathVariable(value = "userId") UUID userId){
         Optional<UserModel> userModelOptional = userService.findById(userId);
         if (userModelOptional.isEmpty())
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User not found");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
         return ResponseEntity.status(HttpStatus.OK).body(userModelOptional.get());
     }
 
@@ -64,7 +64,7 @@ public class UserController {
         log.debug("DELETE deleteUser userId received {}", userId);
         Optional<UserModel> userModelOptional = userService.findById(userId);
         if (userModelOptional.isEmpty())
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User not found");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
         userService.delete(userModelOptional.get());
 
         log.debug("DELETE deleteUser userId saved {}", userId);
@@ -80,7 +80,7 @@ public class UserController {
         log.debug("PUT updateUser userDto received {}", userDto.toString());
         Optional<UserModel> userModelOptional = userService.findById(userId);
         if (userModelOptional.isEmpty())
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User not found");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
         var userModel = userModelOptional.get();
         userModel.setFullName(userDto.getFullName());
         userModel.setPhoneNumber(userDto.getPhoneNumber());
@@ -101,7 +101,7 @@ public class UserController {
         log.debug("PUT updatePassword userDto received {}", userDto.toString());
         Optional<UserModel> userModelOptional = userService.findById(userId);
         if (userModelOptional.isEmpty())
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User not found");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
         if (!userModelOptional.get().getPassword().equals(userDto.getOldPassword())) {
             log.warn("Mismatched old password userId {} ", userDto.getPassword());
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Error: Mismatched old password");
@@ -124,7 +124,7 @@ public class UserController {
         log.debug("PUT updateImage userDto received {}", userDto.toString());
         Optional<UserModel> userModelOptional = userService.findById(userId);
         if (userModelOptional.isEmpty())
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User not found");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
         var userModel = userModelOptional.get();
         userModel.setImageUrl(userDto.getImageUrl());
         userModel.setLastUpdateDate(LocalDateTime.now(ZoneId.of("UTC")));
