@@ -48,14 +48,17 @@ public class UserController {
                 user.add(linkTo(methodOn(UserController.class).getOneUser(user.getUserId())).withSelfRel());
             }
         }
+        log.info("Users find successfully Page {}", userModelPage);
         return ResponseEntity.status(HttpStatus.OK).body(userModelPage);
     }
 
     @GetMapping(value = "/{userId}")
     public ResponseEntity<Object> getOneUser(@PathVariable(value = "userId") UUID userId){
+        log.debug("GET getOneUser userId received {}", userId);
         Optional<UserModel> userModelOptional = userService.findById(userId);
         if (userModelOptional.isEmpty())
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+        log.info("User find successfully userId {}", userId);
         return ResponseEntity.status(HttpStatus.OK).body(userModelOptional.get());
     }
 
