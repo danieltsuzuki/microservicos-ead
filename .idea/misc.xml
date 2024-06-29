@@ -7,6 +7,8 @@
         <option value="$PROJECT_DIR$/course/pom.xml" />
         <option value="$PROJECT_DIR$/authuser/pom.xml" />
         <option value="$PROJECT_DIR$/notification/pom.xml" />
+        <option value="$PROJECT_DIR$/service-registry/service-registry/pom.xml" />
+        <option value="$PROJECT_DIR$/service-registry/pom.xml" />
       </list>
     </option>
     <option name="workspaceImportForciblyTurnedOn" value="true" />
